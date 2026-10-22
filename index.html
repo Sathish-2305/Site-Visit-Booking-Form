@@ -1,0 +1,328 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aditi Housing | Site Visit Booking</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    img,
+    input,
+    select,
+    textarea,
+    button {
+      max-width: 100%;
+    }
+
+    .container {
+      width: min(100% - 32px, 960px);
+      margin-inline: auto;
+    }
+
+    .header img {
+      height: auto !important;
+    }
+
+    .header h1 {
+      text-align: center;
+      line-height: 1.35;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .field {
+      min-width: 0;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .footer {
+      padding-bottom: 72px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        width: calc(100% - 24px);
+      }
+
+      .header {
+        min-height: 0 !important;
+        padding: 12px !important;
+      }
+
+      .header img {
+        width: min(150px, 45vw) !important;
+      }
+
+      .header h1 {
+        font-size: 16px !important;
+      }
+
+      .contact {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+      }
+
+      .form-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+
+      .social-links {
+        position: static !important;
+        justify-content: center;
+        margin-top: 12px;
+      }
+
+      .footer {
+        padding-bottom: 16px;
+        text-align: center;
+      }
+    }
+  </style>
+  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+  <main class="container">
+
+    <header class="header" style="background: linear-gradient(135deg, #fff8dc 0%, #ebd793 50%, #c4f5fd 100%); padding: 10px 16px; min-height: 150px; border: 2px solid #d4af37; border-radius: 18px;">
+      <img src="remove bg logo.png" alt="Aditi Housing logo" width="180" height="180" style="display:block; object-fit:contain; margin:0 auto 6px;">
+      <h1 style="color:#1b1a1a; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size:18px;">Plots • Homes • Villas • Construction</h1>
+    </header>
+
+    <!-- Replace the contact details below with your actual details -->
+    <section class="contact" style="display:flex; flex-direction:row; justify-content:space-around; align-items:center; gap:16px; flex-wrap:wrap;">
+      <div><strong>Contact:</strong>
+        <a href="tel:+919043213291">+91 9043213291</a>
+      </div>
+      <div><strong>Email:</strong>
+        <a href="mailto:sahtishkumarv2305@gmail.com">sahtishkumarv2305@gmail.com</a>
+      </div>
+      <div><strong>Office:</strong> Chennai, Tamil Nadu</div>
+    </section>
+
+    <form id="siteVisitForm" onsubmit="submitSiteVisit(event)">
+
+      <h2 class="section-title">Customer Details</h2>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="name">Full Name *</label>
+          <input id="name" name="name" type="text"
+                 placeholder="Enter customer name" required>
+        </div>
+
+        <div class="field">
+          <label for="phone">WhatsApp / Phone Number *</label>
+          <input id="phone" name="phone" type="tel"
+                 placeholder="10-digit mobile number"
+                 pattern="[0-9]{10}" maxlength="10" required>
+        </div>
+
+        <div class="field full">
+          <label for="email">Email Address</label>
+          <input id="email" name="email" type="email"
+                 placeholder="customer@example.com">
+        </div>
+      </div>
+
+      <h2 class="section-title">Property Preferences</h2>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="project">Interested Project *</label>
+          <select id="project" name="project" required>
+            <option value="">Select a project</option>
+            <option>Andal Kanan Garden</option>
+            <option>Madha Nagar</option>
+            <option>Akash Garden</option>
+            <option>Star Paradise</option>
+            <option>Phoenix Township</option>
+            <option>Other Project</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="property">Property Type *</label>
+          <select id="property" name="property" required>
+            <option value="">Select property type</option>
+            <option>Residential Plot</option>
+            <option>Villa</option>
+            <option>House</option>
+            <option>Investment Property</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="budget">Budget Range</label>
+          <select id="budget" name="budget">
+            <option value="">Select your budget</option>
+            <option>Below ₹20 Lakhs</option>
+            <option>₹20–30 Lakhs</option>
+            <option>₹30–50 Lakhs</option>
+            <option>₹50 Lakhs–1 Crore</option>
+            <option>Above ₹1 Crore</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="purpose">Purpose</label>
+          <select id="purpose" name="purpose">
+            <option value="">Select purpose</option>
+            <option>Own Use</option>
+            <option>Investment</option>
+            <option>Future Construction</option>
+          </select>
+        </div>
+      </div>
+
+      <h2 class="section-title">Site Visit Schedule</h2>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="visitDate">Preferred Visit Date *</label>
+          <input id="visitDate" name="visitDate"
+                 type="date" required>
+        </div>
+
+        <div class="field">
+          <label for="visitTime">Preferred Visit Time *</label>
+          <select id="visitTime" name="visitTime" required>
+            <option value="">Select a time</option>
+            <option>9:00 AM - 11:00 AM</option>
+            <option>11:00 AM - 1:00 PM</option>
+            <option>2:00 PM - 4:00 PM</option>
+            <option>4:00 PM - 6:00 PM</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label for="location">Preferred Site / Location</label>
+          <input id="location" name="location" type="text"
+                 placeholder="Enter preferred location">
+        </div>
+
+        <div class="field">
+          <label for="cabRequired">Do you need a cab?</label>
+          <select id="cabRequired" name="cabRequired">
+            <option value="">Select an option</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="memberCount">How many members will come?</label>
+          <input id="memberCount" name="memberCount" type="number"
+                 min="1" step="1" placeholder="Number of members">
+        </div>
+        
+
+        <div class="field full">
+          <label for="message">Additional Requirements</label>
+          <textarea id="message" name="message"
+                    placeholder="Any questions or special requirements?"></textarea>
+        </div>
+      </div>
+
+      <button class="submit-btn" type="submit">
+        Submit & Continue to WhatsApp
+      </button>
+
+      <p class="note">
+        Your details will be prepared in a WhatsApp message for the
+        Aditi Housing team. Please review and send the message to complete
+        your enquiry.
+      </p>
+
+    </form>
+
+    <footer class="footer">
+      © 2026 Aditi Housing. Building Trust, Creating Tomorrow.
+      <nav class="social-links" aria-label="Social media profiles" style="position:fixed; left:16px; bottom:16px; z-index:10; display:flex; gap:10px;">
+        <a href="https://www.facebook.com/yourprofile" aria-label="Facebook" target="_blank" rel="noopener noreferrer" style="width:42px; height:42px; display:grid; place-items:center; border-radius:50%; background:#111111; color:#d4af37; border:1px solid #d4af37;">
+          <svg viewBox="0 0 24 24" width="21" height="21" aria-hidden="true" fill="currentColor"><path d="M13.5 21v-8.2h2.8l.4-3.2h-3.2v-2c0-.9.3-1.5 1.6-1.5h1.7V3.2c-.3 0-1.3-.2-2.5-.2-2.5 0-4.2 1.5-4.2 4.3v2.3H7.3v3.2h2.8V21h3.4z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/yourprofile" aria-label="Instagram" target="_blank" rel="noopener noreferrer" style="width:42px; height:42px; display:grid; place-items:center; border-radius:50%; background:#111111; color:#d4af37; border:1px solid #d4af37;">
+          <svg viewBox="0 0 24 24" width="21" height="21" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@yourchannel" aria-label="YouTube" target="_blank" rel="noopener noreferrer" style="width:42px; height:42px; display:grid; place-items:center; border-radius:50%; background:#111111; color:#d4af37; border:1px solid #d4af37;">
+          <svg viewBox="0 0 24 24" width="21" height="21" aria-hidden="true" fill="currentColor"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8ZM9.8 15.4V8.6l5.8 3.4-5.8 3.4Z"/></svg>
+        </a>
+      </nav>
+    </footer>
+
+  </main>
+  <script>
+    function submitSiteVisit(event) {
+      event.preventDefault();
+      const data = [...new FormData(event.currentTarget)];
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF();
+      const reference = `AH-${Date.now()}`;
+      let y = 20;
+
+      pdf.setFontSize(18);
+      pdf.text('ADITI HOUSING', 20, y);
+      y += 10;
+      pdf.setFontSize(14);
+      pdf.text('Site Visit Booking Invoice', 20, y);
+      y += 10;
+      pdf.setFontSize(10);
+      pdf.text(`Reference: ${reference}`, 20, y);
+      y += 7;
+      pdf.text(`Date: ${new Date().toLocaleDateString()}`, 20, y);
+      y += 10;
+
+      data.forEach(([key, value]) => {
+        const label = key.replace(/([A-Z])/g, ' $1').replace(/^./, char => char.toUpperCase());
+        const lines = pdf.splitTextToSize(`${label}: ${value || '—'}`, 170);
+        if (y + lines.length * 6 > 280) {
+          pdf.addPage();
+          y = 20;
+        }
+        pdf.text(lines, 20, y);
+        y += lines.length * 6;
+      });
+
+      pdf.save(`Aditi-Housing-${reference}.pdf`);
+      const details = data.map(([key, value]) => `${key}: ${value}`).join('\n');
+      window.open(`https://wa.me/919043213291?text=${encodeURIComponent(details)}`, '_blank', 'noopener,noreferrer');
+    }
+  </script>
+</body>
+</html>
